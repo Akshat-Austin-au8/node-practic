@@ -75,3 +75,14 @@ app.put('/api/courses/:id ', (req, res) =>
     course.name = req.body.name;
     res.send(course);
 });
+
+app.delete('/api/courses/:id ', (req, res) =>
+{
+    const course = courses.find(c => c.id === parseInt(req.param.id));
+    if (!course) res.status(404).send('the course with this given id is undefined');
+
+    const index = courses.indexOf(courses);
+    courses.splice(index, 1);
+
+    
+});
