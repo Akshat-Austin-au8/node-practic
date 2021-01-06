@@ -52,3 +52,26 @@ app.get('/api/courses/:id ', (req, res) =>
 //PORT
 const port = process.env.PORT || 3000;
 app.listen(port, () => console.log(`listening to port ${port}...................`));
+
+app.put('/api/courses/:id ', (req, res) =>
+{
+    const course = courses.find(c => c.id === parseInt(req.param.id));
+    if (!course) res.status(404).send('the course with this given id is undefined');
+
+    //validate
+    const schema = {
+        name: Joi.string().min(3).required()
+    };
+
+    const result = Joi.validate(req.body, schema);
+    
+    if (result.error)
+    {
+        res.status(400).send(result.error.details[0].message)
+        return;
+    }
+
+    //update course
+    course.name = req.body.name;
+    res.send(course);
+});
