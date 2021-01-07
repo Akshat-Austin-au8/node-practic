@@ -1,15 +1,31 @@
+const config = require('config');
 const morgan = require('morgan');
 const helmet = require('helmet');
 const Joi = require('joi');
 const logger = require('./logger');
 const express = require('express');
 const app = express();
+const startupDebugger = require('debug')('app:startup');
+const dbDebugger = require('debug')('app:db');
+
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static('public'));
 app.use(helmet());
-app.use(morgan('tiny'));
+
+//configuration
+console.log('Application Name: ' + config.get('name'));
+console.log('Mail server: ' + config.get('mail.host'));
+
+if (app.get('env') === 'development')
+{
+    app.use(morgan('tiny'));
+    startupDebugger('Morgan enabled...........................');
+}
+
+//Db work........
+dbDebugger('Connect to the database');
 
 app.use(logger);
 
