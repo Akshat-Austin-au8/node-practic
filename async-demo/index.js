@@ -1,18 +1,24 @@
 console.log('before');
-getUser(1, getRepositories);
+// getUser(1, getRepositories);
 console.log('after');
 
-function getRepositories(user) {
-    getRepositories(user.githubUsername, getCommits);
-}
+getUser(1)
+    .then(user => getRepositories(user.githubUsername))
+    .then(repos => getCommits(repos[0]))
+    .then(commits => console.log('Commits', commits))
+    .catch(err => console.log("Error", err.message))
 
-function getCommits(repos) {
-    getCommits(repo, displayCommits);
-}
+// function getRepositories(user) {
+//     getRepositories(user.githubUsername, getCommits);
+// }
 
-function displayCommits(commits) {
-    console.log(commits);
-}
+// function getCommits(repos) {
+//     getCommits(repo, displayCommits);
+// }
+
+// function displayCommits(commits) {
+//     console.log(commits);
+// }
 
 //Synchronous
 // console.log('before');
@@ -52,7 +58,7 @@ function getCommits(repo)
     return new Promise((resolve, reject) =>
     {
         setTimeout(() => {
-            console.log('Calling github apis......')
+            console.log('Calling github Commits......')
             resolve([ 'commit' ]);
         }, 2000);
     });
