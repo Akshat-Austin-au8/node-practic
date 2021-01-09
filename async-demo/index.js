@@ -25,16 +25,35 @@ function displayCommits(commits) {
 //promises => Promise is an object that holds the eventual result of an asynchronous operations
 //async/await
 
-function getUser(id, callback) {
-setTimeout(() => {
-        console.log('Reading a user from a database......')
-        callback ({ id: id, githubUsername: 'akshat' });
-    }, 2000);
+function getUser(id)
+{
+    return new Promise((resolve, reject) =>
+    {
+        setTimeout(() => {
+            console.log('Reading a user from a database......')
+            resolve({ id: id, githubUsername: 'akshat' });
+        }, 2000);
+    });
 } 
 
-function getRepositories(username, callback) {
-setTimeout(() => {
-        console.log('Calling github apis......')
-        callback ([ 'user1', 'user2', 'user3' ]);
-    }, 2000);
+function getRepositories(username)
+{
+    return new Promise((resolve, reject) =>
+    {
+        setTimeout(() => {
+            console.log('Calling github apis......')
+            resolve([ 'user1', 'user2', 'user3' ]);
+        }, 2000);
+    });
+} 
+
+function getCommits(repo)
+{
+    return new Promise((resolve, reject) =>
+    {
+        setTimeout(() => {
+            console.log('Calling github apis......')
+            resolve([ 'commit' ]);
+        }, 2000);
+    });
 } 
