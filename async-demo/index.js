@@ -22,7 +22,7 @@ function displayCommits(commits) {
 // console.log('after');
 
 //callback
-//promices
+//promises => Promise is an object that holds the eventual result of an asynchronous operations
 //async/await
 
 function getUser(id, callback) {
