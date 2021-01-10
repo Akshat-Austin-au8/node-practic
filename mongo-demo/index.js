@@ -28,6 +28,15 @@ async function createCourse()
 
 async function getCourses()
 {
+    // eq (equal)
+    // ne (not equal)
+    // gt (greater then)
+    // gte (greater then or equal to)
+    // lt (less then)
+    // lte (less then or equal to)
+    // in
+    // nin (not in) 
+
     const courses = await Course
         .find({ author: 'Mosh', isPublished: true })
         .limit(10)
