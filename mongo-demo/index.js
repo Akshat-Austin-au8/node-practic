@@ -17,7 +17,7 @@ async function createCourse()
 {
     const course = new Course({
         name: 'Angular course',
-        author: 'Mosh',
+        author: 'Akshat',
         tags: ['angular', 'frontend',],
         isPublished: true
     });
@@ -28,6 +28,7 @@ async function createCourse()
 
 async function getCourses()
 {
+    //---------------------------comparision operator
     // eq (equal)
     // ne (not equal)
     // gt (greater then)
@@ -37,11 +38,39 @@ async function getCourses()
     // in
     // nin (not in) 
 
+    //---------------------------logical operator
+    // or
+    //and
+
+    //---------------------------regular expression
+
+    const pageNumer = 2;
+    const pageSize = 10;
+
     const courses = await Course
-        .find({ author: 'Mosh', isPublished: true })
+        .find({ author: 'Akshat', isPublished: true })
+
+        //---------------------------regular expression
+        //start with akshat 
+        // .find({ author: /^Akshat/ })
+        // //end with austin 
+        // .find({ author: /Austin$/i })
+        // //Contains akshat 
+        // .find({ author: /.*Akshat.*/i })
+
+        //---------------------------logical operator
+        // .find()
+        // .or([{ author: 'Akshat' }, { isPublished: true }])
+        // .and([ ])
+
+        //---------------------------comparision operator
+        // .find({ price: { $gte: 10, $lte: 20} })
+        // .find({ price: { $in: [10, 15, 20]} })
+        .skip((pageNumer - 1) * pageSize)
         .limit(10)
         .sort({ name: 1 })
         .select({ name: 1, tags: 1 });
+        // .count()
     console.log(courses);
 }
 
