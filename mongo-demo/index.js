@@ -14,7 +14,10 @@ const courseSchema = new mongoose.Schema({
     category: {
         type: String,
         required: true,
-        enum: ['web', 'mobile', 'network']
+        enum: ['web', 'mobile', 'network'],
+        lowercase: true,
+        uppercase: true,
+        trim: true
     },
     author: String,
     tags: {
@@ -37,7 +40,9 @@ const courseSchema = new mongoose.Schema({
         type: Number,
         required: function () { return this.isPublished; },
         min: 10,
-        max: 100
+        max: 100,
+        get: v => Math.round(v),
+        set: v => Math.round(v)
     }
 });
 
@@ -51,7 +56,7 @@ async function createCourse()
         author: 'Akshat',
         tags: ['angular', 'frontend',],
         isPublished: true,
-        price: 15
+        price: 15.8
     });
     
     try
