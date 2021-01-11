@@ -23,18 +23,32 @@ const Customer = mongoose.model('Customer', new mongoose.Schema({
 }));
 
 router.get('/', async (req, res) => {
-    const genres = await Customer.find().sort('name');
-    res.send(genres);
+    const customers = await Customer.find().sort('name');
+    res.send(customers);
 });
 
 router.post('/', async (req, res) => {
-    const { error } = validateGenre(req.body); 
+    const { error } = validateCustomer(req.body); 
     if (error) return res.status(400).send(error.details[0].message);
 
-    let genre = new Customer({ name: req.body.name });
-    genre = await genre.save();
+    let customer = new Customer({
+        name: req.body.name,
+        phone: req.body.phone,
+        isGold: req.body.isGold,
+    });
+    customer = await customer.save();
     
-    res.send(genre);
+    res.send(customer);
 });
+
+function validateCustomer(customer) {
+    const schema = {
+        name: Joi.string().min(5).max(50).required(),
+        phone: Joi.string().min(5).max(50).required(),
+        isGold: Joi.boolean()
+    };
+
+    return Joi.validate(customer, schema);
+}
 
 module.exports = router;
