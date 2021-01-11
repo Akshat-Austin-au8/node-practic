@@ -12,7 +12,7 @@ const Customer = mongoose.model('Customer', new mongoose.Schema({
     },
     isGold: {
         type: Boolean,
-        default: false
+        default: false 
     },
     phone: {
         type: String,
