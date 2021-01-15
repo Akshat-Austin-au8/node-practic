@@ -1,4 +1,5 @@
 require('express-async-errors');
+require('winston-mongdb');
 const Joi = require('joi');
 Joi.objectId = require('joi-objectid')(Joi);
 const mongoose = require('mongoose');
@@ -12,6 +13,12 @@ const express = require('express');
 const error = require('./middleware/error');
 const auth = require('./routes/auth');
 const app = express();
+
+winston.add(winston.transports.file, { filename: 'logfile.log ' });
+winston.add(winston.transports.mongodb, {
+  db: 'mongodb://localhost/vidly',
+  level: 'info'
+});
 
 if (!config.get('jwtPrivateKey'))
 {
