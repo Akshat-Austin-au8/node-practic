@@ -14,6 +14,12 @@ const error = require('./middleware/error');
 const auth = require('./routes/auth');
 const app = express();
 
+process.on('uncoughtException', (ex) =>
+{
+  console.log("we got an ncought exception");
+  wisnton.error(ex.message, ex);
+})
+
 winston.add(winston.transports.file, { filename: 'logfile.log ' });
 winston.add(winston.transports.mongodb, {
   db: 'mongodb://localhost/vidly',
