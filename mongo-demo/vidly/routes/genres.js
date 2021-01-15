@@ -5,9 +5,17 @@ const mongoose = require('mongoose');
 const express = require('express');
 const router = express.Router();
 
-router.get('/', auth, async (req, res) => {
-  const genres = await Genre.find().sort('name');
-  res.send(genres);
+router.get('/', auth, async (req, res) =>
+{
+  try
+  {
+    const genres = await Genre.find().sort('name');
+    res.send(genres);
+  }
+  catch (ex)
+  {
+    res.status(500).send('Something failed............');
+  }
 });
 
 router.post('/', async (req, res) =>
