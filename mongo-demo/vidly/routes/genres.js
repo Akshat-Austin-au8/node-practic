@@ -5,7 +5,7 @@ const mongoose = require('mongoose');
 const express = require('express');
 const router = express.Router();
 
-router.get('/', auth, async (req, res) =>
+router.get('/', auth, async (req, res, next) =>
 {
   try
   {
@@ -14,7 +14,7 @@ router.get('/', auth, async (req, res) =>
   }
   catch (ex)
   {
-    res.status(500).send('Something failed............');
+    next(ex);
   }
 });
 
